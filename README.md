@@ -16,13 +16,7 @@ Compile and deploy:
 ```
 cd examples/sol
 npm run compile
-npx hardhat deploy:RandomNFT --vrf 0x3Bc8ce8a86eeC25AE77Af96ae06b0e605Fb93d52
-```
-
-After deployment you can mint the NFT:
-
-```
-npx hardhat mint:RandomNFT
+npm run deploy
 ```
 
 

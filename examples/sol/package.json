@@ -1,6 +1,6 @@
 {
-  "name": "zkvrf-example",
-  "version": "1.0.0",
+  "name": "zkvrf-sol-example",
+  "version": "0.1.0",
   "engines": {
     "node": ">=16.0.0"
   },
@@ -44,7 +44,7 @@
     "@types/node": "^18.11.9",
     "@typescript-eslint/eslint-plugin": "^5.44.0",
     "@typescript-eslint/parser": "^5.44.0",
-    "@orao-network/zkvrf": "latest",
+    "@orao-network/zkvrf": "file:../../",
     "chai": "^4.3.7",
     "commitizen": "^4.2.5",
     "cross-env": "^7.0.3",
