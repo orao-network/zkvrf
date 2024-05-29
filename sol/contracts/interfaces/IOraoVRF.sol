@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import "./IERC20.sol";
 
-interface IOraoVrf {
+interface IOraoVRF {
     function ORAO() external view returns (IERC20);
 
     function request(bytes32 seed, uint32 callbackGasLimit) external payable;

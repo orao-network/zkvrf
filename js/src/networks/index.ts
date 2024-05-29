@@ -14,7 +14,7 @@ export function isSupportedChainId(chainId: number): chainId is EvmChainIds {
 export function getSupportedEvmChainId(chainId: number): IEvmNetworkConfig {
     if (!isSupportedChainId(chainId)) {
         throw new Error(
-            `The provided chainID '${chainId}' is not yet supported by the OraoVrf. Available chainID's are: [${SUPPORTED_EVM_CHAIN_IDS.map(
+            `The provided chainID '${chainId}' is not yet supported by the OraoVRF. Available chainID's are: [${SUPPORTED_EVM_CHAIN_IDS.map(
                 (c) => "'" + c + "'"
             ).join(", ")}]`
         );

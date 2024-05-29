@@ -1,4 +1,4 @@
-import { MockERC20, OraoVrf } from "../../../contract/types";
+import { MockERC20, OraoVRF } from "../../../contract/types";
 import {
     BigNumber,
     Contract,
@@ -105,9 +105,9 @@ export type SendContractMethod<T extends Contract> = (
     options: TransactionOptions | undefined
 ) => Promise<ContractTransaction>;
 
-export interface IOraoZKVrfClient {
-    // An instance of the {@link OraoVrf} contract.
-    vrf: OraoVrf;
+export interface IOraoVRFClient {
+    // An instance of the {@link OraoVRF.sol} contract.
+    vrf: OraoVRF;
     // An instance of the Orao token contract.
     orao: MockERC20;
 
@@ -117,32 +117,32 @@ export interface IOraoZKVrfClient {
      * @returns Promise<string>
      *
      * ```typescript
-     * const signerAddress = await oraoZKVrfClient.address;
+     * const signerAddress = await oraoVRFClient.address;
      * ```
      */
     address: Promise<string>;
     chainId: Promise<number>;
     /**
-     * Returns a new instance of the OraoZKVrfClient with a new signer.
+     * Returns a new instance of the OraoVRFClient with a new signer.
      * @param signer - The new signer
-     * @returns OraoZKVrfClient
+     * @returns OraoVRFClient
      *
      * ```typescript
-     * const newOraoZKVrfClient = oraoZKVrfClient.connect(newSigner);
+     * const newOraoVRFClient = oraoVRFClient.connect(newSigner);
      * ```
      */
-    connect(signer: Signer): IOraoZKVrfClient;
+    connect(signer: Signer): IOraoVRFClient;
 
     /**
-     * Sends a transaction to the OraoVrf.sol contract
+     * Sends a transaction to the OraoVRF.sol.sol contract
      * @param methodName - The name of the contract method to be called
      * @param args - The arguments to pass to the contract method
      * @param options - The options to pass to the contract method
      * @returns Promise<ContractTransaction>
      *
      * ```typescript
-     * const transaction = await oraoZKVrfClient.sendTxn('methodName', args, options);
+     * const transaction = await oraoVRFClient.sendTxn('methodName', args, options);
      * ```
      */
-    sendTxn: SendContractMethod<OraoVrf>;
+    sendTxn: SendContractMethod<OraoVRF>;
 }

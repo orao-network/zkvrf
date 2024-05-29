@@ -66,8 +66,8 @@ export class EthersError extends Error {
     const ethersError = EthersError.fromErr(err);
 
     //
-    if (OraoVrfErrorNames.includes(ethersError.errorName!)) {
-        return OraoVrfError.from(
+    if (OraoVRFErrorNames.includes(ethersError.errorName!)) {
+        return OraoVRFError.from(
             ethersError.errorName!,
             ethersError.method!,
             ethersError.err.message
@@ -113,7 +113,7 @@ export class EthersError extends Error {
   }
 }
 
-export class OraoVrfError extends Error {
+export class OraoVRFError extends Error {
   constructor(
     readonly name: string,
     readonly method: string,
@@ -124,14 +124,14 @@ export class OraoVrfError extends Error {
 
     Error.captureStackTrace(this, this.constructor);
 
-    Object.setPrototypeOf(this, OraoVrfError.prototype);
+    Object.setPrototypeOf(this, OraoVRFError.prototype);
   }
 
   public static from(
     name: string,
     method: string,
     _message: string
-  ): OraoVrfError {
+  ): OraoVRFError {
     switch (name) {
       case "AlreadyRequested":
         return new AlreadyRequested(method, _message);
@@ -152,12 +152,12 @@ export class OraoVrfError extends Error {
       case "Reentrant":
         return new Reentrant(method, _message);
       default:
-        return new OraoVrfError(name, method, _message);
+        return new OraoVRFError(name, method, _message);
     }
   }
 }
 
-const OraoVrfErrorNames = [
+const OraoVRFErrorNames = [
   "AlreadyRequested",
   "AlreadyFulfilled",
   "GasLimitTooBig",
@@ -170,7 +170,7 @@ const OraoVrfErrorNames = [
   "Reentrant",
 ];
 
-export class AlreadyRequested extends OraoVrfError {
+export class AlreadyRequested extends OraoVRFError {
   constructor(readonly method: string, _message: string) {
     super("AlreadyRequested", method, _message);
 
@@ -178,7 +178,7 @@ export class AlreadyRequested extends OraoVrfError {
   }
 }
 
-export class AlreadyFulfilled extends OraoVrfError {
+export class AlreadyFulfilled extends OraoVRFError {
   constructor(readonly method: string, _message: string) {
     super("AlreadyFulfilled", method, _message);
 
@@ -186,14 +186,14 @@ export class AlreadyFulfilled extends OraoVrfError {
   }
 }
 
-export class GasLimitTooBig extends OraoVrfError {
+export class GasLimitTooBig extends OraoVRFError {
   constructor(readonly method: string, _message: string) {
     super("GasLimitTooBig", method, _message);
 
     Object.setPrototypeOf(this, GasLimitTooBig.prototype);
   }
 }
-export class InsufficientBalance extends OraoVrfError {
+export class InsufficientBalance extends OraoVRFError {
   constructor(readonly method: string, _message: string) {
     super("InsufficientBalance", method, _message);
 
@@ -201,7 +201,7 @@ export class InsufficientBalance extends OraoVrfError {
   }
 }
 
-export class NotRequested extends OraoVrfError {
+export class NotRequested extends OraoVRFError {
   constructor(readonly method: string, _message: string) {
     super("NotRequested", method, _message);
 
@@ -209,7 +209,7 @@ export class NotRequested extends OraoVrfError {
   }
 }
 
-export class NotVerifiable extends OraoVrfError {
+export class NotVerifiable extends OraoVRFError {
   constructor(readonly method: string, _message: string) {
     super("NotVerifiable", method, _message);
 
@@ -217,7 +217,7 @@ export class NotVerifiable extends OraoVrfError {
   }
 }
 
-export class NoVerifier extends OraoVrfError {
+export class NoVerifier extends OraoVRFError {
   constructor(readonly method: string, _message: string) {
     super("NoVerifier", method, _message);
 
@@ -225,7 +225,7 @@ export class NoVerifier extends OraoVrfError {
   }
 }
 
-export class PaymentTooLarge extends OraoVrfError {
+export class PaymentTooLarge extends OraoVRFError {
   constructor(readonly method: string, _message: string) {
     super("PaymentTooLarge", method, _message);
 
@@ -233,7 +233,7 @@ export class PaymentTooLarge extends OraoVrfError {
   }
 }
 
-export class PendingRequestExists extends OraoVrfError {
+export class PendingRequestExists extends OraoVRFError {
   constructor(readonly method: string, _message: string) {
     super("PendingRequestExists", method, _message);
 
@@ -241,7 +241,7 @@ export class PendingRequestExists extends OraoVrfError {
   }
 }
 
-export class Reentrant extends OraoVrfError {
+export class Reentrant extends OraoVRFError {
   constructor(readonly method: string, _message: string) {
     super("Reentrant", method, _message);
 

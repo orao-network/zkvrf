@@ -1,2 +1,2 @@
-export { OraoVrf, OraoVrf__factory } from "../../../contract/types";
+export { OraoVRF, OraoVRF__factory } from "../../../contract/types";
 export * from "./zkvrf";

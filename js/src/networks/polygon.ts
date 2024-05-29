@@ -14,13 +14,13 @@ export const ORAO_VRF_POLYGON_MAINNET_CONFIG: IEvmNetworkConfig = {
 
 export const ORAO_VRF_POLYGON_TESTNET_CONFIG: IEvmNetworkConfig = {
     chain: "polygon",
-    chainId: 80001,
-    networkName: "Mumbai",
-    address: "0xA3c9F9F6E40282e1366bdC01C1D30F7F7F58888e",
-    oraoAddress: "0xA3c9F9F6E40282e1366bdC01C1D30F7F7F58888e",
+    chainId: 80002,
+    networkName: "amoy",
+    address: "0x3Bc8ce8a86eeC25AE77Af96ae06b0e605Fb93d52",
+    oraoAddress: "0xA3c9F9F6E40282e1366bdC01C1D30F7F7F58888e", //TODO
     metadata: {
-        defaultRpcUrl: "https://rpc-mumbai.polygon.technology",
-        defaultExplorer: "https://mumbai.polygonscan.com",
+        defaultRpcUrl: "https://rpc-amoy.polygon.technology",
+        defaultExplorer: "https://amoy.polygonscan.com",
     },
 };
 

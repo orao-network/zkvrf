@@ -3,19 +3,16 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@zkvrf/contracts/OraoVrfConsumerBase.sol";
+import "@orao-network/zkvrf/contracts/OraoVRFConsumerBase.sol";
 
-contract RandomNFT is ERC721, Ownable, OraoVrfConsumerBase {
+contract RandomNFT is ERC721, Ownable, OraoVRFConsumerBase {
     uint256 private _nextTokenId;
 
     mapping(uint256 => string) public tokenIdToFeature;
 
-    constructor(address _vrfCoordinator)
-    ERC721("RandomNFT", "RNFT")
-    OraoVrfConsumerBase(_vrfCoordinator)
-    {}
+    constructor(address _vrfCoordinator) ERC721("RandomNFT", "RNFT") OraoVRFConsumerBase(_vrfCoordinator) {}
 
-    function mint() public {
+    function mint() payable public {
         super.request(generateSeed(msg.sender, _nextTokenId++));
     }
 

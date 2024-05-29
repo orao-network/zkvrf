@@ -3,14 +3,14 @@
 ## Example of using the ORAO zkVRF contract
 
 ```solidity
-contract OraoVrfConsumer is OraoVrfConsumerBase {
+contract OraoVRFConsumer is OraoVRFConsumerBase {
   bytes32 public seed;
   bytes32 public part1;
   bytes32 public part2;
-  IOraoVrf internal _vrfCoordinator;
+  IOraoVRF internal _vrfCoordinator;
 
-  constructor(address vrfCoordinator) OraoVrfConsumerBase(vrfCoordinator) {
-    _vrfCoordinator = IOraoVrf(vrfCoordinator);
+  constructor(address vrfCoordinator) OraoVRFConsumerBase(vrfCoordinator) {
+    _vrfCoordinator = IOraoVRF(vrfCoordinator);
   }
 
   function fulfillRandomness(bytes32 _seed, bytes32 _part1, bytes32 _part2) internal override {
@@ -19,7 +19,7 @@ contract OraoVrfConsumer is OraoVrfConsumerBase {
     part2 = _part2;
   }
 
-  function request(bytes32 _seed) public override {
+  function request(bytes32 _seed) public payable override {
     seed = _seed;
     super.request(_seed);
   }

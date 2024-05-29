@@ -30,7 +30,8 @@ const chainIds = {
   mainnet: 1,
   "optimism-mainnet": 10,
   "polygon-mainnet": 137,
-  "polygon-mumbai": 80001,
+  "polygon-amoy": 80002,
+  "polygon-zkevm": 1101,
   sepolia: 11155111,
   goerli: 5,
   "lumio-testnet": 9990,
@@ -44,6 +45,9 @@ function getChainConfig(chain: keyof typeof chainIds): NetworkUserConfig {
       break;
     case "bsc":
       jsonRpcUrl = "https://bsc-dataseed1.binance.org";
+      break;
+    case "polygon-zkevm":
+      jsonRpcUrl = "https://polygon-zkevm.drpc.org";
       break;
     case "lumio-testnet":
       jsonRpcUrl = "https://testnet.lumio.io";
@@ -68,10 +72,29 @@ const config: HardhatUserConfig = {
       mainnet: process.env.ETHERSCAN_API_KEY || "",
       optimisticEthereum: process.env.OPTIMISM_API_KEY || "",
       polygon: process.env.POLYGONSCAN_API_KEY || "",
-      polygonMumbai: process.env.POLYGONSCAN_API_KEY || "",
+      polygonAmoy: process.env.POLYGONSCAN_API_KEY || "",
+      polygonZkevm: process.env.POLYGONSCAN_API_KEY || "",
       sepolia: process.env.ETHERSCAN_API_KEY || "",
       goerli: process.env.ETHERSCAN_API_KEY || "",
     },
+    customChains: [
+      {
+        network: "polygonAmoy",
+        chainId: 80002,
+        urls: {
+          apiURL: "https://api-amoy.polygonscan.com/api",
+          browserURL: "https://amoy.polygonscan.com"
+        },
+      },
+      {
+        network: "polygon",
+        chainId: 137,
+        urls: {
+          apiURL: "https://api.polygonscan.com/api",
+          browserURL: "https://polygonscan.com"
+        },
+      }
+    ]
   },
   gasReporter: {
     currency: "USD",
@@ -89,7 +112,7 @@ const config: HardhatUserConfig = {
     mainnet: getChainConfig("mainnet"),
     optimism: getChainConfig("optimism-mainnet"),
     "polygon-mainnet": getChainConfig("polygon-mainnet"),
-    "polygon-mumbai": getChainConfig("polygon-mumbai"),
+    "polygon-amoy": getChainConfig("polygon-amoy"),
     sepolia: getChainConfig("sepolia"),
     goerli: getChainConfig("goerli"),
     "lumio-testnet": getChainConfig("lumio-testnet"),

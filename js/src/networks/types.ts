@@ -16,9 +16,9 @@ type Rename<T, K extends keyof T, N extends string> = Omit<T, K> & {
 ///////////////////////////////////////////////////////////////////////////////
 /////////////// Supported Chains///////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-/** The current EVM chains OraoVrf is currently deployed on. */
+/** The current EVM chains OraoVRF.sol is currently deployed on. */
 export const ORAO_VRF_EVM_CHAINS = ["polygon"] as const;
-/** The current EVM chains OraoVrf is currently deployed on. */
+/** The current EVM chains OraoVRF.sol is currently deployed on. */
 export type EvmChainType = (typeof ORAO_VRF_EVM_CHAINS)[number];
 
 ///////////////////////////////////////////////////////////////////////////////

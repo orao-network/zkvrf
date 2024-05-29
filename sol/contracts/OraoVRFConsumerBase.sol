@@ -1,25 +1,41 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "./interfaces/IOraoVrf.sol";
+import "./interfaces/IOraoVRF.sol";
 
-abstract contract OraoVrfConsumerBase {
+abstract contract OraoVRFConsumerBase {
     error OnlyCoordinatorCanFulfill(address have, address want);
 
     // solhint-disable-next-line
-    IOraoVrf private immutable vrfCoordinator;
+    IOraoVRF private immutable vrfCoordinator;
     uint32 public immutable callbackGasLimit;
 
     /**
      * @param _vrfCoordinator address of VRFCoordinator contract
      */
     constructor(address _vrfCoordinator) {
-        vrfCoordinator = IOraoVrf(_vrfCoordinator);
+        vrfCoordinator = IOraoVRF(_vrfCoordinator);
         callbackGasLimit = uint32(calcGasUsed());
     }
 
-    function request(bytes32 seed) public virtual {
-        vrfCoordinator.request(seed, callbackGasLimit);
+    function request(bytes32 seed) public payable virtual {
+        vrfCoordinator.request{ value: msg.value }(seed, callbackGasLimit);
+    }
+
+    function calcTxValue(uint256 gasPrice) external view returns (uint256) {
+        (uint256 orao, int256 base, ) = getSubscription();
+        base -= int256(gasPrice * callbackGasLimit);
+
+        (, uint256 oraoFee, uint256 baseFee) = vrfCoordinator.getConfig();
+
+        if (oraoFee < orao) {
+            baseFee = 0;
+        }
+
+        if (int256(baseFee) > base) baseFee = uint256(int256(baseFee) - base);
+        else baseFee = 0;
+
+        return baseFee;
     }
 
     function fundSubscription(uint256 orao) public payable {
@@ -54,7 +70,7 @@ abstract contract OraoVrfConsumerBase {
      * @notice fulfillRandomness handles the VRF response. Your contract must
      * @notice implement it.
      *
-     * @dev OraoVrfConsumerBase.sol expects its subcontracts to have a method with this
+     * @dev OraoVRFConsumerBase expects its subcontracts to have a method with this
      * @dev signature, and will call it once it has verified the proof
      * @dev associated with the randomness. (It is triggered via a call to
      * @dev rawFulfillRandomness, below.)

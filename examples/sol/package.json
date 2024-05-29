@@ -1,5 +1,5 @@
 {
-  "name": "@zkvrf/contracts",
+  "name": "zkvrf-example",
   "version": "1.0.0",
   "engines": {
     "node": ">=16.0.0"
@@ -9,7 +9,7 @@
     "clean": "shx rm -rf ./artifacts ./cache ./coverage ./types ./coverage.json && yarn typechain",
     "compile": "cross-env TS_NODE_TRANSPILE_ONLY=true hardhat compile",
     "coverage": "hardhat coverage --solcoverjs ./.solcover.js --temp artifacts --testfiles \"test/**/*.ts\" && yarn typechain",
-    "deploy": "hardhat deploy:OraoVrf",
+    "deploy": "hardhat deploy:RandomNFT",
     "lint": "yarn lint:sol && yarn lint:ts && yarn prettier:check",
     "lint:sol": "solhint --max-warnings 0 \"contracts/**/*.sol\"",
     "lint:ts": "eslint --ignore-path ./.eslintignore --ext .js,.ts .",
@@ -44,7 +44,7 @@
     "@types/node": "^18.11.9",
     "@typescript-eslint/eslint-plugin": "^5.44.0",
     "@typescript-eslint/parser": "^5.44.0",
-    "@zkvrf/contracts": "file:../../sol/contracts",
+    "@orao-network/zkvrf": "latest",
     "chai": "^4.3.7",
     "commitizen": "^4.2.5",
     "cross-env": "^7.0.3",
