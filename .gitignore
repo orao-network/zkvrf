@@ -1,0 +1,10 @@
+.vscode
+.idea
+/target
+/Cargo.lock
+/witness
+.DS_Store
+/tmpfiles
+/out
+/node_modules
+.env
