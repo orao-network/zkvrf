@@ -12,7 +12,19 @@ contract RandomNFT is ERC721, Ownable, OraoVRFConsumerBase {
 
     constructor(address _vrfCoordinator) ERC721("RandomNFT", "RNFT") OraoVRFConsumerBase(_vrfCoordinator) {}
 
-    function mint() payable public {
+    function calcGasUsed() public override returns (uint256 gasUsed) {
+        uint256 startGas = gasleft();
+
+        fulfillRandomness(
+            0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff,
+            0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff,
+            0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        );
+
+        gasUsed = startGas - gasleft();
+    }
+
+    function mint() public payable {
         super.request(generateSeed(msg.sender, _nextTokenId++));
     }
 

@@ -1,7 +1,7 @@
 {
   "name": "@orao-network/zkvrf",
   "description": "ORAO zkVRF SDK library for Solidity",
-  "version": "0.2.3",
+  "version": "0.3.2",
   "publishConfig": {
     "access": "public"
   },
@@ -20,12 +20,14 @@
     "contracts",
     "zk",
     "VRF",
-    "zkVRF"
+    "zkVRF",
+    "zero-knowledge",
+    "zero-knowledge VRF"
   ],
   "author": "ORAO Network Developers <hello@orao.network>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/orao-network/zkvrf/issues"
   },
-  "homepage": "https://orao.network/"
+  "homepage": "https://orao.network/zkvrf"
 }

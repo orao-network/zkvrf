@@ -17,14 +17,14 @@ type Rename<T, K extends keyof T, N extends string> = Omit<T, K> & {
 /////////////// Supported Chains///////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 /** The current EVM chains OraoVRF.sol is currently deployed on. */
-export const ORAO_VRF_EVM_CHAINS = ["polygon"] as const;
+export const ORAO_VRF_EVM_CHAINS = ["polygon", "zircuit", "arbitrum"] as const;
 /** The current EVM chains OraoVRF.sol is currently deployed on. */
 export type EvmChainType = (typeof ORAO_VRF_EVM_CHAINS)[number];
 
 ///////////////////////////////////////////////////////////////////////////////
 /////////////// Supported Chain IDs ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-export const SUPPORTED_EVM_CHAIN_IDS = [137, 80001] as const;
+export const SUPPORTED_EVM_CHAIN_IDS = [137, 80002, 255, 2358, 42161, 421614] as const;
 export type EvmChainIds = (typeof SUPPORTED_EVM_CHAIN_IDS)[number];
 
 

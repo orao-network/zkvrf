@@ -155,7 +155,7 @@ export class OraoVRFClient implements IOraoVRFClient {
     }
 
     /**
-     * Sends a transaction to the OraoVRF.sol.sol contract
+     * Sends a transaction to the OraoVRF.sol contract
      * @param methodName - The name of the contract method to be called
      * @param args - The arguments to pass to the contract method
      * @param options - The options to pass to the contract method

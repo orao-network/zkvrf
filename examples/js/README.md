@@ -15,6 +15,18 @@ contract OraoVRFConsumer is OraoVRFConsumerBase {
         _vrfCoordinator = IOraoVRF(vrfCoordinator);
     }
 
+    function calcGasUsed() public override returns (uint256 gasUsed) {
+        uint256 startGas = gasleft();
+
+        fulfillRandomness(
+            0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff,
+            0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff,
+            0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        );
+
+        gasUsed = startGas - gasleft();
+    }
+    
     function fulfillRandomness(bytes32 _seed, bytes32 _part1, bytes32 _part2) internal override {
         seed = _seed;
         part1 = _part1;

@@ -4,9 +4,9 @@
 
 /* eslint-disable */
 import type {
-  IERC20Permit,
-  IERC20PermitInterface,
-} from "../../../../../../@openzeppelin/contracts/token/ERC20/extensions/IERC20Permit";
+  IERC20PermitUpgradeable,
+  IERC20PermitUpgradeableInterface,
+} from "../../../../../../@openzeppelin/contracts-upgradeable/token/ERC20/extensions/IERC20PermitUpgradeable";
 import type { Provider } from "@ethersproject/providers";
 import { Contract, Signer, utils } from "ethers";
 
@@ -88,15 +88,19 @@ const _abi = [
   },
 ] as const;
 
-export class IERC20Permit__factory {
+export class IERC20PermitUpgradeable__factory {
   static readonly abi = _abi;
-  static createInterface(): IERC20PermitInterface {
-    return new utils.Interface(_abi) as IERC20PermitInterface;
+  static createInterface(): IERC20PermitUpgradeableInterface {
+    return new utils.Interface(_abi) as IERC20PermitUpgradeableInterface;
   }
   static connect(
     address: string,
     signerOrProvider: Signer | Provider
-  ): IERC20Permit {
-    return new Contract(address, _abi, signerOrProvider) as IERC20Permit;
+  ): IERC20PermitUpgradeable {
+    return new Contract(
+      address,
+      _abi,
+      signerOrProvider
+    ) as IERC20PermitUpgradeable;
   }
 }

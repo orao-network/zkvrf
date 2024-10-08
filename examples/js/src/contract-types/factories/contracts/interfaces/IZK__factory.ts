@@ -69,9 +69,9 @@ const _abi = [
         type: "tuple",
       },
       {
-        internalType: "uint256[12]",
+        internalType: "uint256[4]",
         name: "input",
-        type: "uint256[12]",
+        type: "uint256[4]",
       },
     ],
     name: "verifyTx",

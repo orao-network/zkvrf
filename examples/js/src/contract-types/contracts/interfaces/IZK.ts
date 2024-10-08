@@ -63,14 +63,22 @@ export declare namespace IZK {
 
 export interface IZKInterface extends utils.Interface {
   functions: {
-    "verifyTx(((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint256[12])": FunctionFragment;
+    "verifyTx(((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint256[4])": FunctionFragment;
   };
 
   getFunction(nameOrSignatureOrTopic: "verifyTx"): FunctionFragment;
 
   encodeFunctionData(
     functionFragment: "verifyTx",
-    values: [IZK.ProofStruct, PromiseOrValue<BigNumberish>[]]
+    values: [
+      IZK.ProofStruct,
+      [
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>
+      ]
+    ]
   ): string;
 
   decodeFunctionResult(functionFragment: "verifyTx", data: BytesLike): Result;
@@ -107,21 +115,36 @@ export interface IZK extends BaseContract {
   functions: {
     verifyTx(
       proof: IZK.ProofStruct,
-      input: PromiseOrValue<BigNumberish>[],
+      input: [
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>
+      ],
       overrides?: CallOverrides
     ): Promise<[boolean] & { r: boolean }>;
   };
 
   verifyTx(
     proof: IZK.ProofStruct,
-    input: PromiseOrValue<BigNumberish>[],
+    input: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
+    ],
     overrides?: CallOverrides
   ): Promise<boolean>;
 
   callStatic: {
     verifyTx(
       proof: IZK.ProofStruct,
-      input: PromiseOrValue<BigNumberish>[],
+      input: [
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>
+      ],
       overrides?: CallOverrides
     ): Promise<boolean>;
   };
@@ -131,7 +154,12 @@ export interface IZK extends BaseContract {
   estimateGas: {
     verifyTx(
       proof: IZK.ProofStruct,
-      input: PromiseOrValue<BigNumberish>[],
+      input: [
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>
+      ],
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
@@ -139,7 +167,12 @@ export interface IZK extends BaseContract {
   populateTransaction: {
     verifyTx(
       proof: IZK.ProofStruct,
-      input: PromiseOrValue<BigNumberish>[],
+      input: [
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>
+      ],
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };

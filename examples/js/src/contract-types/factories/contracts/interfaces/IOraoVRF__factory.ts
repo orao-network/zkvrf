@@ -16,7 +16,7 @@ const _abi = [
     name: "ORAO",
     outputs: [
       {
-        internalType: "contract IERC20",
+        internalType: "contract IERC20Upgradeable",
         name: "",
         type: "address",
       },

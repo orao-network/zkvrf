@@ -17,5 +17,5 @@ npx hardhat compile
 ```
 npx hardhat --network polygon-amoy deploy:RandomNFT --vrf 0x3Bc8ce8a86eeC25AE77Af96ae06b0e605Fb93d52
 ```
-<span style="font-size:0.5em;">(On Amoy Testnet, ORAO's zkVRF is deployed to: 0x3Bc8ce8a86eeC25AE77Af96ae06b0e605Fb93d52)</style>
+<span style="font-size:0.5em;">(On Amoy Testnet, ORAO's zkVRF is deployed to: 0x71dF232185377F2a9ecF9a74422e64733e4e5408)</style>
 

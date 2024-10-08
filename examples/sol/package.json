@@ -1,6 +1,6 @@
 {
-  "name": "zkvrf-sol-example",
-  "version": "0.1.0",
+  "name": "zkvrf-sol-randomnft",
+  "version": "0.3.2",
   "engines": {
     "node": ">=16.0.0"
   },

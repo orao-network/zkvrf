@@ -25,7 +25,7 @@ import type {
   utils,
 } from "ethers";
 
-export interface IERC20PermitInterface extends utils.Interface {
+export interface IERC20PermitUpgradeableInterface extends utils.Interface {
   functions: {
     "DOMAIN_SEPARATOR()": FunctionFragment;
     "nonces(address)": FunctionFragment;
@@ -67,12 +67,12 @@ export interface IERC20PermitInterface extends utils.Interface {
   events: {};
 }
 
-export interface IERC20Permit extends BaseContract {
+export interface IERC20PermitUpgradeable extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: IERC20PermitInterface;
+  interface: IERC20PermitUpgradeableInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,

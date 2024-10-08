@@ -70,24 +70,16 @@ export declare namespace IZK {
 
 export declare namespace OraoVRF {
   export type RequestStruct = {
-    verifier: PromiseOrValue<BigNumberish>;
+    sender: PromiseOrValue<string>;
     part1: PromiseOrValue<BytesLike>;
     part2: PromiseOrValue<BytesLike>;
-    sender: PromiseOrValue<string>;
     callbackGasLimit: PromiseOrValue<BigNumberish>;
   };
 
-  export type RequestStructOutput = [
-    BigNumber,
-    string,
-    string,
-    string,
-    number
-  ] & {
-    verifier: BigNumber;
+  export type RequestStructOutput = [string, string, string, number] & {
+    sender: string;
     part1: string;
     part2: string;
-    sender: string;
     callbackGasLimit: number;
   };
 }
@@ -96,15 +88,13 @@ export interface OraoVRFInterface extends utils.Interface {
   functions: {
     "ORAO()": FunctionFragment;
     "cancelSubscription(address)": FunctionFragment;
-    "fulfill(((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),bytes32,uint256,uint256,bytes32)": FunctionFragment;
+    "fulfill(((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),bytes32,bytes32[2])": FunctionFragment;
     "fundSubscription(uint256)": FunctionFragment;
     "getConfig()": FunctionFragment;
-    "getCurrentVerifierIdentity()": FunctionFragment;
-    "getCurrentVerifierLocation()": FunctionFragment;
     "getRequest(bytes32)": FunctionFragment;
     "getSubscription(address)": FunctionFragment;
-    "getVerifierIdentity(uint256)": FunctionFragment;
-    "getVerifierLocation(uint256)": FunctionFragment;
+    "getVerifier()": FunctionFragment;
+    "initialize(address)": FunctionFragment;
     "oracleWithdraw(address,uint96,uint96)": FunctionFragment;
     "owner()": FunctionFragment;
     "ownerCancelSubscription(address)": FunctionFragment;
@@ -112,8 +102,9 @@ export interface OraoVRFInterface extends utils.Interface {
     "renounceOwnership()": FunctionFragment;
     "request(bytes32,uint32)": FunctionFragment;
     "setConfig(uint32,uint64,uint64)": FunctionFragment;
-    "setVerifier(address,uint256,uint256)": FunctionFragment;
+    "setVerifier(address)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
+    "verifier()": FunctionFragment;
     "withdrawableBaseTokens(address)": FunctionFragment;
     "withdrawableOraoTokens(address)": FunctionFragment;
   };
@@ -125,12 +116,10 @@ export interface OraoVRFInterface extends utils.Interface {
       | "fulfill"
       | "fundSubscription"
       | "getConfig"
-      | "getCurrentVerifierIdentity"
-      | "getCurrentVerifierLocation"
       | "getRequest"
       | "getSubscription"
-      | "getVerifierIdentity"
-      | "getVerifierLocation"
+      | "getVerifier"
+      | "initialize"
       | "oracleWithdraw"
       | "owner"
       | "ownerCancelSubscription"
@@ -140,6 +129,7 @@ export interface OraoVRFInterface extends utils.Interface {
       | "setConfig"
       | "setVerifier"
       | "transferOwnership"
+      | "verifier"
       | "withdrawableBaseTokens"
       | "withdrawableOraoTokens"
   ): FunctionFragment;
@@ -154,9 +144,7 @@ export interface OraoVRFInterface extends utils.Interface {
     values: [
       IZK.ProofStruct,
       PromiseOrValue<BytesLike>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>
+      [PromiseOrValue<BytesLike>, PromiseOrValue<BytesLike>]
     ]
   ): string;
   encodeFunctionData(
@@ -164,14 +152,6 @@ export interface OraoVRFInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(functionFragment: "getConfig", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "getCurrentVerifierIdentity",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getCurrentVerifierLocation",
-    values?: undefined
-  ): string;
   encodeFunctionData(
     functionFragment: "getRequest",
     values: [PromiseOrValue<BytesLike>]
@@ -181,12 +161,12 @@ export interface OraoVRFInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
-    functionFragment: "getVerifierIdentity",
-    values: [PromiseOrValue<BigNumberish>]
+    functionFragment: "getVerifier",
+    values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getVerifierLocation",
-    values: [PromiseOrValue<BigNumberish>]
+    functionFragment: "initialize",
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "oracleWithdraw",
@@ -223,16 +203,13 @@ export interface OraoVRFInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "setVerifier",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
     values: [PromiseOrValue<string>]
   ): string;
+  encodeFunctionData(functionFragment: "verifier", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "withdrawableBaseTokens",
     values: [PromiseOrValue<string>]
@@ -253,27 +230,16 @@ export interface OraoVRFInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getConfig", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getCurrentVerifierIdentity",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getCurrentVerifierLocation",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "getRequest", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getSubscription",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getVerifierIdentity",
+    functionFragment: "getVerifier",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "getVerifierLocation",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "oracleWithdraw",
     data: BytesLike
@@ -301,6 +267,7 @@ export interface OraoVRFInterface extends utils.Interface {
     functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "verifier", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "withdrawableBaseTokens",
     data: BytesLike
@@ -313,6 +280,7 @@ export interface OraoVRFInterface extends utils.Interface {
   events: {
     "ConfigSet(uint32,uint64,uint64)": EventFragment;
     "Fulfilled(bytes32,bytes32,bytes32,uint96,uint96,bool)": EventFragment;
+    "Initialized(uint8)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
     "Requested(address,bytes32,uint32)": EventFragment;
     "SubscriptionCanceled(address,address,uint96,uint96)": EventFragment;
@@ -321,6 +289,7 @@ export interface OraoVRFInterface extends utils.Interface {
 
   getEvent(nameOrSignatureOrTopic: "ConfigSet"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Fulfilled"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Initialized"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Requested"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SubscriptionCanceled"): EventFragment;
@@ -353,6 +322,13 @@ export type FulfilledEvent = TypedEvent<
 >;
 
 export type FulfilledEventFilter = TypedEventFilter<FulfilledEvent>;
+
+export interface InitializedEventObject {
+  version: number;
+}
+export type InitializedEvent = TypedEvent<[number], InitializedEventObject>;
+
+export type InitializedEventFilter = TypedEventFilter<InitializedEvent>;
 
 export interface OwnershipTransferredEventObject {
   previousOwner: string;
@@ -442,9 +418,7 @@ export interface OraoVRF extends BaseContract {
     fulfill(
       proof: IZK.ProofStruct,
       seed: PromiseOrValue<BytesLike>,
-      rx: PromiseOrValue<BigNumberish>,
-      ry: PromiseOrValue<BigNumberish>,
-      s: PromiseOrValue<BytesLike>,
+      signature: [PromiseOrValue<BytesLike>, PromiseOrValue<BytesLike>],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -463,10 +437,6 @@ export interface OraoVRF extends BaseContract {
       }
     >;
 
-    getCurrentVerifierIdentity(overrides?: CallOverrides): Promise<[string]>;
-
-    getCurrentVerifierLocation(overrides?: CallOverrides): Promise<[string]>;
-
     getRequest(
       seed: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -483,15 +453,12 @@ export interface OraoVRF extends BaseContract {
       }
     >;
 
-    getVerifierIdentity(
-      index: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+    getVerifier(overrides?: CallOverrides): Promise<[string]>;
 
-    getVerifierLocation(
-      index: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+    initialize(
+      orao: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
     oracleWithdraw(
       recipient: PromiseOrValue<string>,
@@ -530,9 +497,7 @@ export interface OraoVRF extends BaseContract {
     ): Promise<ContractTransaction>;
 
     setVerifier(
-      location: PromiseOrValue<string>,
-      ax: PromiseOrValue<BigNumberish>,
-      ay: PromiseOrValue<BigNumberish>,
+      _verifier: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -540,6 +505,8 @@ export interface OraoVRF extends BaseContract {
       newOwner: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
+
+    verifier(overrides?: CallOverrides): Promise<[string]>;
 
     withdrawableBaseTokens(
       arg0: PromiseOrValue<string>,
@@ -562,9 +529,7 @@ export interface OraoVRF extends BaseContract {
   fulfill(
     proof: IZK.ProofStruct,
     seed: PromiseOrValue<BytesLike>,
-    rx: PromiseOrValue<BigNumberish>,
-    ry: PromiseOrValue<BigNumberish>,
-    s: PromiseOrValue<BytesLike>,
+    signature: [PromiseOrValue<BytesLike>, PromiseOrValue<BytesLike>],
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -583,10 +548,6 @@ export interface OraoVRF extends BaseContract {
     }
   >;
 
-  getCurrentVerifierIdentity(overrides?: CallOverrides): Promise<string>;
-
-  getCurrentVerifierLocation(overrides?: CallOverrides): Promise<string>;
-
   getRequest(
     seed: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
@@ -603,15 +564,12 @@ export interface OraoVRF extends BaseContract {
     }
   >;
 
-  getVerifierIdentity(
-    index: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  getVerifier(overrides?: CallOverrides): Promise<string>;
 
-  getVerifierLocation(
-    index: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  initialize(
+    orao: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   oracleWithdraw(
     recipient: PromiseOrValue<string>,
@@ -650,9 +608,7 @@ export interface OraoVRF extends BaseContract {
   ): Promise<ContractTransaction>;
 
   setVerifier(
-    location: PromiseOrValue<string>,
-    ax: PromiseOrValue<BigNumberish>,
-    ay: PromiseOrValue<BigNumberish>,
+    _verifier: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -660,6 +616,8 @@ export interface OraoVRF extends BaseContract {
     newOwner: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
+
+  verifier(overrides?: CallOverrides): Promise<string>;
 
   withdrawableBaseTokens(
     arg0: PromiseOrValue<string>,
@@ -682,9 +640,7 @@ export interface OraoVRF extends BaseContract {
     fulfill(
       proof: IZK.ProofStruct,
       seed: PromiseOrValue<BytesLike>,
-      rx: PromiseOrValue<BigNumberish>,
-      ry: PromiseOrValue<BigNumberish>,
-      s: PromiseOrValue<BytesLike>,
+      signature: [PromiseOrValue<BytesLike>, PromiseOrValue<BytesLike>],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -703,10 +659,6 @@ export interface OraoVRF extends BaseContract {
       }
     >;
 
-    getCurrentVerifierIdentity(overrides?: CallOverrides): Promise<string>;
-
-    getCurrentVerifierLocation(overrides?: CallOverrides): Promise<string>;
-
     getRequest(
       seed: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -723,15 +675,12 @@ export interface OraoVRF extends BaseContract {
       }
     >;
 
-    getVerifierIdentity(
-      index: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    getVerifier(overrides?: CallOverrides): Promise<string>;
 
-    getVerifierLocation(
-      index: PromiseOrValue<BigNumberish>,
+    initialize(
+      orao: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<string>;
+    ): Promise<void>;
 
     oracleWithdraw(
       recipient: PromiseOrValue<string>,
@@ -768,9 +717,7 @@ export interface OraoVRF extends BaseContract {
     ): Promise<void>;
 
     setVerifier(
-      location: PromiseOrValue<string>,
-      ax: PromiseOrValue<BigNumberish>,
-      ay: PromiseOrValue<BigNumberish>,
+      _verifier: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -778,6 +725,8 @@ export interface OraoVRF extends BaseContract {
       newOwner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    verifier(overrides?: CallOverrides): Promise<string>;
 
     withdrawableBaseTokens(
       arg0: PromiseOrValue<string>,
@@ -818,6 +767,9 @@ export interface OraoVRF extends BaseContract {
       basePayment?: null,
       success?: null
     ): FulfilledEventFilter;
+
+    "Initialized(uint8)"(version?: null): InitializedEventFilter;
+    Initialized(version?: null): InitializedEventFilter;
 
     "OwnershipTransferred(address,address)"(
       previousOwner?: PromiseOrValue<string> | null,
@@ -875,9 +827,7 @@ export interface OraoVRF extends BaseContract {
     fulfill(
       proof: IZK.ProofStruct,
       seed: PromiseOrValue<BytesLike>,
-      rx: PromiseOrValue<BigNumberish>,
-      ry: PromiseOrValue<BigNumberish>,
-      s: PromiseOrValue<BytesLike>,
+      signature: [PromiseOrValue<BytesLike>, PromiseOrValue<BytesLike>],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -887,10 +837,6 @@ export interface OraoVRF extends BaseContract {
     ): Promise<BigNumber>;
 
     getConfig(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getCurrentVerifierIdentity(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getCurrentVerifierLocation(overrides?: CallOverrides): Promise<BigNumber>;
 
     getRequest(
       seed: PromiseOrValue<BytesLike>,
@@ -902,14 +848,11 @@ export interface OraoVRF extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getVerifierIdentity(
-      index: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getVerifier(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getVerifierLocation(
-      index: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+    initialize(
+      orao: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     oracleWithdraw(
@@ -949,9 +892,7 @@ export interface OraoVRF extends BaseContract {
     ): Promise<BigNumber>;
 
     setVerifier(
-      location: PromiseOrValue<string>,
-      ax: PromiseOrValue<BigNumberish>,
-      ay: PromiseOrValue<BigNumberish>,
+      _verifier: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -959,6 +900,8 @@ export interface OraoVRF extends BaseContract {
       newOwner: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
+
+    verifier(overrides?: CallOverrides): Promise<BigNumber>;
 
     withdrawableBaseTokens(
       arg0: PromiseOrValue<string>,
@@ -982,9 +925,7 @@ export interface OraoVRF extends BaseContract {
     fulfill(
       proof: IZK.ProofStruct,
       seed: PromiseOrValue<BytesLike>,
-      rx: PromiseOrValue<BigNumberish>,
-      ry: PromiseOrValue<BigNumberish>,
-      s: PromiseOrValue<BytesLike>,
+      signature: [PromiseOrValue<BytesLike>, PromiseOrValue<BytesLike>],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -994,14 +935,6 @@ export interface OraoVRF extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     getConfig(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    getCurrentVerifierIdentity(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    getCurrentVerifierLocation(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
 
     getRequest(
       seed: PromiseOrValue<BytesLike>,
@@ -1013,14 +946,11 @@ export interface OraoVRF extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getVerifierIdentity(
-      index: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getVerifier(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getVerifierLocation(
-      index: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+    initialize(
+      orao: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     oracleWithdraw(
@@ -1060,9 +990,7 @@ export interface OraoVRF extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     setVerifier(
-      location: PromiseOrValue<string>,
-      ax: PromiseOrValue<BigNumberish>,
-      ay: PromiseOrValue<BigNumberish>,
+      _verifier: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1070,6 +998,8 @@ export interface OraoVRF extends BaseContract {
       newOwner: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
+
+    verifier(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     withdrawableBaseTokens(
       arg0: PromiseOrValue<string>,

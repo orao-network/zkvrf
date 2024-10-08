@@ -14,4 +14,3 @@ export type { mocks };
 export type { testhelpers };
 export type { OraoVRF } from "./OraoVRF";
 export type { OraoVRFConsumerBase } from "./OraoVRFConsumerBase";
-export type { Verifier } from "./Verifier";
