@@ -13,6 +13,7 @@ zkVRF is currently deployed to:
 | Polygon Amoy     | 0x8587eBdBED9280A493d4105238b2b3e373931816 |    
 | Zircuit Sepolia  | 0xDA2Fc58785B299b731174948D15E5959619d56d2 |
 | Arbitrum Sepolia | 0x77B95E9e8203A4EEBF89664642f835b0C33F9416 |
+| Avalanche Fuji   | 0x35d0a63c248490810705e895d1Ba4fD8fF454a19 |
 
 
 

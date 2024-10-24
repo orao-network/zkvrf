@@ -1,6 +1,6 @@
 {
   "name": "zkvrf-js-example",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "ORAO ZK Verifiable Random Function for EVM blockchain",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

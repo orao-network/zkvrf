@@ -6,6 +6,7 @@ import {
 import { ORAO_VRF_POLYGON_CONFIG } from "./polygon";
 import { ORAO_VRF_ZIRCUIT_CONFIG } from "./zircuit";
 import { ORAO_VRF_ARBITRUM_CONFIG } from "./arbitrum";
+import { ORAO_VRF_AVALANCHE_CONFIG } from "./avalanche";
 
 export const ORAO_VRF_EVM_CHAIN_IDS: Record<EvmChainIds, IEvmNetworkConfig> = {
     137: ORAO_VRF_POLYGON_CONFIG.mainnet,
@@ -14,6 +15,8 @@ export const ORAO_VRF_EVM_CHAIN_IDS: Record<EvmChainIds, IEvmNetworkConfig> = {
     2358: ORAO_VRF_ZIRCUIT_CONFIG.testnet,
     42161: ORAO_VRF_ARBITRUM_CONFIG.mainnet,
     421614: ORAO_VRF_ARBITRUM_CONFIG.testnet,
+    43114: ORAO_VRF_AVALANCHE_CONFIG.mainnet,
+    43113: ORAO_VRF_AVALANCHE_CONFIG.testnet,
 };
 
 export function isSupportedChainId(chainId: number): chainId is EvmChainIds {

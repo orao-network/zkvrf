@@ -111,7 +111,9 @@ abstract contract OraoVRFConsumerBase {
      * @param base - An int96 representing the base token balance of the contract.
      * @param pendingReqCount - A uint64 representing the count of pending VRF requests for the contract.
      *
-     * @return A tuple containing the ORAO token balance, base token balance, and pending request count.
+     * @return orao - ORAO balance of the subscription.
+     * @return base - base token balance of the subscription.
+     * @return pendingReqCount - number of pending requests for this subscription.
      */
     function getSubscription() public view returns (uint96 orao, int96 base, uint64 pendingReqCount) {
         return vrfCoordinator.getSubscription(address(this));
@@ -139,7 +141,7 @@ abstract contract OraoVRFConsumerBase {
      * @dev The provided code snippet inside the function calculates the gas used by calling
      * fulfillRandomness with maximum input values and then subtracting the remaining gas from the initial gas left.
      *
-     * @return {uint256} The calculated gas used for the callback function.
+     * @return gasUsed - The calculated gas used for the callback function.
      *
      * Example usage:
      * ```
