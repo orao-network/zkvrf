@@ -1,7 +1,7 @@
 {
   "name": "@orao-network/zkvrf",
   "description": "ORAO zkVRF SDK library for Solidity",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "publishConfig": {
     "access": "public"
   },
