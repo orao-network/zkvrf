@@ -1,4 +1,4 @@
-# ORAO zkVRF SDK
+# ORAO zkVRF JS SDK
 
 <p>
 ORAO's Zero-Knowledge Verifiable Random Function (zkVRF) provides fast, secure and affordable randomness utiziling zero knowledge protocols.
@@ -71,3 +71,22 @@ contract OraoVRFConsumer is OraoVRFConsumerBase {
 }
 ```
 
+```typescript
+const provider = new ethers.providers.InfuraWebSocketProvider(
+    "matic",
+    process.env.INFURA_API_KEY
+);
+const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
+const signerAddress = wallet.address;
+const oraoVrfConsumer = new ethers.Contract(
+    ORAO_VRF_CONSUMER_ADDRESS,
+    CONSUMER_ABI,
+    signer
+);
+
+const gasPrice = await provider.getGasPrice();
+const txValue = await oraoVrfConsumer.calcTxValue(gasPrice);
+
+const seed = new Uint8Array(randomBytes(32));
+await oraoVrfConsumer.request(seed, { value: txValue });
+```

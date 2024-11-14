@@ -3,7 +3,7 @@
 /* tslint:disable */
 
 /* eslint-disable */
-import * as Contracts from ".";
+import * as Contracts from "./index";
 import {
   FactoryOptions,
   HardhatEthersHelpers as HardhatEthersHelpersBase,
