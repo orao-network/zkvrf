@@ -2,11 +2,14 @@
 
 <p>
 ORAO's Zero-Knowledge Verifiable Random Function (zkVRF) provides fast, secure and affordable randomness utiziling zero knowledge protocols.
-  zkVRF utilizes zkSNARKs version of the Zero-knowledge proofs (ZKPs) family of probabilistic protocols.
-With zkVRF you can create unique NFT characteristics, generate random weapons and levels in games, provide unique loot boxes, enable provably fair rewards distribution, randomize airdrops and provide secure, verifiable lottery/raffle.
+  zkVRF utilizes zkSNARKs version of the Zero-knowledge proofs (ZKPs) family of probabilistic protocols.<br />
+With zkVRF you can utilize provable fairness for gambling, create unique NFT characteristics, generate random weapons and levels in games, provide unique loot boxes, enable provably fair rewards distribution, randomize airdrops and provide secure, verifiable lottery/raffle.
+</p>
+<p align="center">
+  <a href="https://www.npmjs.com/package/@orao-network/zkvrf><img src="https://img.shields.io/npm/v/%40orao-network%2Fszkvrf?logo=npm&color=377CC0" /></a>
 </p>
 
-zkVRF is currently deployed to: 
+zkVRF is currently deployed to:
 
 | Network          | OraoVRF                                    |
 |------------------|--------------------------------------------|
