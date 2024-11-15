@@ -1,4 +1,5 @@
 import {
+    BigNumber,
     BytesLike,
     ContractTransaction,
     providers,
@@ -122,36 +123,31 @@ export class OraoVRFClient implements IOraoVRFClient {
 
     /**
      * Static method to create and return a OraoVRFClient instance.
-     * @param signer - The signer used to interact with the contracts
+     * @param signerOrProvider - The signer or provider used to interact with the contracts
      * @throws if chainId is not supported by OraoVRF.sol
      * @returns Promise<OraoVRFClient>
      *
      * ```typescript
-     * const oraoVRFClient = await OraoVRFClient.fromSigner(mySigner);
+     * const oraoVRFClient = await OraoVRFClient.create(mySigner);
      * ```
      */
-    public static async fromSigner(signer: Signer): Promise<OraoVRFClient> {
-        const { chainId } = await signer.provider!.getNetwork();
+    public static async create(
+        signerOrProvider: Signer | providers.Provider
+    ): Promise<OraoVRFClient> {
+        let chainId: number;
+        if (Signer.isSigner(signerOrProvider)) {
+            if (!signerOrProvider.provider) {
+                throw new Error("Signer must be connected to a provider");
+            }
+            chainId = await signerOrProvider.getChainId();
+        } else {
+            const network = await signerOrProvider.getNetwork();
+            chainId = network.chainId;
+        }
         const config = getSupportedEvmChainId(chainId);
-        const vrf = getOraoVRF(config.address, signer);
-        const orao = getOrao(config.oraoAddress, signer);
+        const vrf = getOraoVRF(config.address, signerOrProvider);
+        const orao = getOrao(config.oraoAddress, signerOrProvider);
         return new OraoVRFClient(vrf, orao);
-    }
-
-    /**
-     * Returns a new instance of the OraoVRFClient with a new signer.
-     * @param signer - The new signer
-     * @returns OraoVRFClient
-     *
-     * ```typescript
-     * const newOraoVRFClient = oraoVRFClient.connect(newSigner);
-     * ```
-     */
-    public connect(signer: Signer): OraoVRFClient {
-        return new OraoVRFClient(
-            this.vrf.connect(signer),
-            this.orao.connect(signer)
-        );
     }
 
     /**
@@ -178,36 +174,29 @@ export class OraoVRFClient implements IOraoVRFClient {
         options?: TransactionOptions
     ): Promise<ContractTransaction> => {
         const signerAddress = await this.vrf.signer.getAddress();
-        const config = await this.vrf.getConfig();
-        const subscription = await this.vrf.getSubscription(signerAddress);
-
-        // If there is insufficient fund in the subscription, then calculate VRF fee (ORAO token or base token) to send.
-        if (
-            config.oraoFee.gt(subscription.orao) &&
-            config.baseFee.gt(subscription.base)
-        ) {
-            const oraoBalance = await this.orao.balanceOf(signerAddress);
-            const allowance = await this.orao.allowance(
-                signerAddress,
-                this.vrf.address
-            );
-            const oraoToPay = config.oraoFee.sub(subscription.orao);
-            if (oraoBalance.gt(oraoToPay)) {
-                if (allowance.lt(oraoToPay))
-                    await this.orao.approve(this.vrf.address, oraoToPay);
-            } else {
-                options = {
-                    ...options,
-                    value: config.baseFee.sub(subscription.base),
-                };
-            }
-        }
+        options = {
+            ...options,
+            value: await this.calcTxValue(signerAddress),
+        };
 
         return await this.sendTxn(
             "request",
             [seed, 0 /* no callback */],
             options
         );
+    };
+
+    calcTxValue = async (address: string): Promise<BigNumber> => {
+        const config = await this.vrf.getConfig();
+        const subscription = await this.vrf.getSubscription(address);
+
+        // If there is insufficient fund in the subscription, then calculate VRF fee (base token) to send.
+        if (
+            config.oraoFee.gt(subscription.orao) &&
+            config.baseFee.gt(subscription.base)
+        ) {
+            return config.baseFee.sub(subscription.base);
+        } else return BigNumber.from(0);
     };
 
     waitFulfilled = async (seed: BytesLike): Promise<BytesLike> => {

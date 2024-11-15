@@ -11,7 +11,7 @@ describe("vrf", async () => {
             "https://rpc-amoy.polygon.technology"
         );
         const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
-        const oraoVRFClient = await OraoVRFClient.fromSigner(wallet);
+        const oraoVRFClient = await OraoVRFClient.create(wallet);
 
         const seed = new Uint8Array(randomBytes(32));
         let txnHash = await oraoVRFClient.request(seed, { gasLimit: 5000000 });
