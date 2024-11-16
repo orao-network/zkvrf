@@ -204,7 +204,10 @@ export class OraoVRFClient implements IOraoVRFClient {
             while (true) {
                 try {
                     const randomness = await this.getRandomness(seed);
-                    if (randomness != "0x") {
+                    if (
+                        randomness !=
+                        "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+                    ) {
                         resolve(randomness);
                         break;
                     }
