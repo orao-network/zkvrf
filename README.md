@@ -2,22 +2,21 @@
 
 <p>
 ORAO's Zero-Knowledge Verifiable Random Function (zkVRF) provides fast, secure and affordable randomness utiziling zero knowledge protocols.
-  zkVRF utilizes zkSNARKs version of the Zero-knowledge proofs (ZKPs) family of probabilistic protocols.<br />
-With zkVRF you can utilize provable fairness for gambling, create unique NFT characteristics, generate random weapons and levels in games, provide unique loot boxes, enable provably fair rewards distribution, randomize airdrops and provide secure, verifiable lottery/raffle.
+  zkVRF utilizes zkSNARKs version of the Zero-knowledge proofs (ZKPs) family of probabilistic protocols.
+With zkVRF you can create unique NFT characteristics, generate random weapons and levels in games, provide unique loot boxes, enable provably fair rewards distribution, randomize airdrops and provide secure, verifiable lottery/raffle.
 </p>
 <p align="center">
-  <a href="https://www.npmjs.com/package/@orao-network/zkvrf><img src="https://img.shields.io/npm/v/%40orao-network%2Fszkvrf?logo=npm&color=377CC0" /></a>
+  <a href="https://www.npmjs.com/package/@orao-network/zkvrf"><img src="https://img.shields.io/npm/v/%40orao-network%2Fzkvrf?logo=fueler&logoColor=white&color=blue" /></a> 
 </p>
 
-zkVRF is currently deployed to:
+zkVRF is currently deployed to: 
 
 | Network          | OraoVRF                                    |
 |------------------|--------------------------------------------|
+| Avalanche Fuji   | 0x35d0a63c248490810705e895d1Ba4fD8fF454a19 |
 | Polygon Amoy     | 0x8587eBdBED9280A493d4105238b2b3e373931816 |    
 | Zircuit Sepolia  | 0xDA2Fc58785B299b731174948D15E5959619d56d2 |
 | Arbitrum Sepolia | 0x77B95E9e8203A4EEBF89664642f835b0C33F9416 |
-| Avalanche Fuji   | 0x35d0a63c248490810705e895d1Ba4fD8fF454a19 |
-
 
 
 ### Features

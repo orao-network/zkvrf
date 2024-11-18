@@ -191,10 +191,7 @@ export class OraoVRFClient implements IOraoVRFClient {
         const subscription = await this.vrf.getSubscription(address);
 
         // If there is insufficient fund in the subscription, then calculate VRF fee (base token) to send.
-        if (
-            config.oraoFee.gt(subscription.orao) &&
-            config.baseFee.gt(subscription.base)
-        ) {
+        if (config.baseFee.gt(subscription.base)) {
             return config.baseFee.sub(subscription.base);
         } else return BigNumber.from(0);
     };
